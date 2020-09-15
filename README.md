@@ -1,2 +1,2 @@
-# lowpass-to-phase
-HLS project to convert the lowpassed and decimated resonator IQ stream to 4 phase streams (and a debugging stream)
+# gen3-timekeeper
+HLS project to combine UTC timestamp, FPGA clock, and PPS signal into a dependable timestamp.

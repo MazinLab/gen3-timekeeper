@@ -1,5 +1,6 @@
 #include "timekeeper.hpp"
-
+#include <iostream>
+using namespace std;
 
 
 void timekeeper(bool pps, tktime_t unixtime, tktime_t &time, unsigned short &pps_misalign) {
@@ -18,9 +19,16 @@ void timekeeper(bool pps, tktime_t unixtime, tktime_t &time, unsigned short &pps
 	}
 
 	hs_clk_tics++; // @512MHZ  each tick is .0019 us, 512 per us
-	if (hs_clk_tics==TICS_PER_US-1 | pps) {
+
+//	cout<<"Core hs:"<<hs_clk_tics<<" us:"<<us_clk_tics;
+	if (hs_clk_tics==0 | pps) {
+//		cout<<" tick";
+//		if (pps) cout<<" pps";
+//		if (hs_clk_tics==0) cout<<" hs:";
+//		cout<<endl;
 		us_clk_tics = us_clk_tics == 1000000 ? ap_uint<20>(0): ap_uint<20>(us_clk_tics+1);
 	}
+//	else cout<<endl;
 
 	time = unixtime*1000000+us_clk_tics;
 }
